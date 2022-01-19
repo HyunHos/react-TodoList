@@ -1,8 +1,11 @@
-import React, {Component }from 'react';
-import './TodoItem.css'
+import React, { Component } from 'react';
+import './TodoItem.css';
 
-class TodoItem extends Component{
-  render(){
+class TodoItem extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.checked !== nextProps.checked;
+  }
+  render() {
     /* 
       text : todo 내용
       checked : 체크박스 상태
@@ -10,20 +13,25 @@ class TodoItem extends Component{
       onToggle : 체크박스를 키고 끄는 함수
       onRemove : 아이템을 삭제시키는 함수
     */
-    const { text, checked, id, onToggle, onRemove} = this.props;
+    const { text, checked, id, onToggle, onRemove } = this.props;
 
     return (
-      <div className="todo-item" onClick={()=> onToggle(id)}>
-        <div className="remove" onClick={(e) => {
-          e.stopPropagetion(); // onToggle이 실행되지 않도록 함
-          onRemove(id);
-        }}>&times;</div>
+      <div className="todo-item" onClick={() => onToggle(id)}>
+        <div
+          className="remove"
+          onClick={(e) => {
+            e.stopPropagation(); // onToggle이 실행되지 않도록 함
+            onRemove(id);
+          }}
+        >
+          &times;
+        </div>
         <div className={`todo-text ${checked ? 'checked' : ''}`}>
           <div>{text}</div>
         </div>
         {checked && <div className="check-mark">✓</div>}
       </div>
-    )
+    );
   }
 }
 
