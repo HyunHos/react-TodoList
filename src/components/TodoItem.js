@@ -13,7 +13,7 @@ class TodoItem extends Component {
       onToggle : 체크박스를 키고 끄는 함수
       onRemove : 아이템을 삭제시키는 함수
     */
-    const { text, checked, id, onToggle, onRemove } = this.props;
+    const { text, checked, id, onToggle, onRemove,color } = this.props;
 
     return (
       <div className="todo-item" onClick={() => onToggle(id)}>
@@ -27,7 +27,7 @@ class TodoItem extends Component {
           &times;
         </div>
         <div className={`todo-text ${checked ? 'checked' : ''}`}>
-          <div>{text}</div>
+          <div style={{color:color}}>{text}</div>
         </div>
         {checked && <div className="check-mark">✓</div>}
       </div>

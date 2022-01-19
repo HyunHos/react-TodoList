@@ -1,0 +1,25 @@
+.palette {
+  display: flex;
+  justify-content: center;
+}
+
+.palette-color-box {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  opacity: 0.5;
+}
+
+.palette-color-box:hover {
+  opacity: 1;
+}
+
+.palette-color-box.active,
+.palette-color-box:active {
+  opacity: 1;
+}
+
+.palette-color-box + .palette-color-box{
+  margin-left: 1rem;
+}

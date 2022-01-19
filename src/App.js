@@ -2,16 +2,19 @@ import React from 'react';
 import TodoListTemplate from './components/TodoListTemplate';
 import Form from './components/Form';
 import TodoItemList from './components/TodoItemList';
+import Palette from './components/Palette';
 
 class App extends React.Component {
   id = 3; // 이미 0,1,2 가 존재하므로 3으로 설정
+  colors = ['#343a40', '#f03e3e', '#12b886', '#228ae6'];
 
   state = {
     input: '',
+    color: this.colors[0],
     todos: [
-      { id: 0, text: ' 리액트 소개', checked: false },
-      { id: 1, text: ' 리액트 소개', checked: true },
-      { id: 2, text: ' 리액트 소개', checked: false },
+      { id: 0, text: ' 리액트 소개', checked: false, color:'' },
+      { id: 1, text: ' 리액트 소개', checked: true, color:'' },
+      { id: 2, text: ' 리액트 소개', checked: false, color:'' },
     ],
   };
 
@@ -22,7 +25,7 @@ class App extends React.Component {
   };
 
   handleCreate = () => {
-    const { input, todos } = this.state;
+    const { input, todos, color } = this.state;
 
     this.setState({
       input: '',
@@ -30,6 +33,7 @@ class App extends React.Component {
         id: this.id++,
         text: input,
         checked: false,
+        color: color
       }),
     });
   };
@@ -67,14 +71,21 @@ class App extends React.Component {
     });
   };
 
+  handleColorChange = (color) => {
+    this.setState({
+      color : color
+    })
+  }
+
   render() {
-    const { input, todos } = this.state;
+    const { input, todos, color} = this.state;
     const {
       handleChange,
       handleCreate,
       handleKeyPress,
       handleToggle,
       handleRemove,
+      handleColorChange
     } = this;
 
     return (
@@ -85,12 +96,10 @@ class App extends React.Component {
             onKeyPress={handleKeyPress}
             onChange={handleChange}
             onCreate={handleCreate}
+            color={color}
           />
         }
-        
-        palette={
-          <Palette/>
-        }
+        palette={<Palette colors={this.colors} color={color} onChange={handleColorChange}/>}
       >
         <TodoItemList
           todos={todos}
